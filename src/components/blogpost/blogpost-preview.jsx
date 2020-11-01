@@ -7,6 +7,7 @@ class BPostPreview extends Component {
     }
     render() {
         const post = this.props.post;
+        const lastUpdatedStr = new Date(post.lastUpdateAt).toDateString();
         return (
             <div className="card">
                 <div className="card-content">
@@ -16,15 +17,15 @@ class BPostPreview extends Component {
                                 <img src="https://bulma.io/images/placeholders/96x96.png" alt="Profile" /></figure>
                         </div>
                         <div className="media-content">
-                            <p className="title is-4">{post.authorFullName}</p>
-                            {/* <p className="subtitle is-6">@johnsmith</p> */}
-                            <time dateTime={post.lastUpdateAt.toDateString()}>{post.lastUpdateAt.toDateString()}</time>
+                            <p className="title is-4">{post.title}</p>
+                            <p className="subtitle is-6">{post.userID}</p>
+                            <time dateTime={lastUpdatedStr}>{lastUpdatedStr}</time>
                         </div>
                     </div>
                     <div className="content">
                         {this.textPreview(post.text)}
                         <br />
-                        <a href='/blogpost/2323423423434'>@bulmaio</a>.
+                        <a href='/blogpost/2323423423434'>See more</a>.
                     </div>
                 </div>
             </div>

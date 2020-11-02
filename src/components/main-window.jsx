@@ -4,6 +4,7 @@ import MainMenu from "./main-menu";
 import { Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import PostForm from "./blogpost/blogpost-form";
+import { UsersList } from "./user/users-list";
 
 class MainWindow extends Component {
     render() {
@@ -13,6 +14,7 @@ class MainWindow extends Component {
                 <Switch>
                     <Route exact path="/feed"><PostsList /></Route>
                     <Route exact path="/new"><PostForm /></Route>
+                    <Route exact path="/login"><UsersList /></Route>
                     <Route exact path="/about" render={() => (<div>About</div>)}></Route>
                     <Redirect from="/" to="/feed" />
                 </Switch>

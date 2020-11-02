@@ -49,12 +49,12 @@ class MainMenu extends Component {
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="buttons">
-                                <a class="button is-primary">
+                                {/* <a class="button is-primary">
                                     <strong>Sign up</strong>
-                                </a>
-                                <a class="button is-light">
+                                </a> */}
+                                <Link to="/login" className="button is-light">
                                     Log in
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

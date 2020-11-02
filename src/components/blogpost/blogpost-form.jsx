@@ -71,17 +71,15 @@ class PostForm extends Component {
                 </div>
                 <div class="field">
                     <label class="label">Tags</label>
-                    <div class="control">
+                    <div class="control field is-grouped">
                         <input id='tags' value={tagsValue} onChange={this.handleChange} type='text' className="input" placeholder="Add tags separated with commas" />
+                        <button onClick={this.getTags} class="control button is-link is-light">Get tags</button>
                     </div>
                 </div>
 
                 <div class="field is-grouped">
                     <div class="control">
                         <input type="submit" value="Submit" class="button is-link"></input>
-                    </div>
-                    <div class="control">
-                        <button onClick={this.getTags} class="button is-link is-light">Get tags</button>
                     </div>
                 </div>
             </form>

@@ -11,11 +11,12 @@ class PostForm extends Component {
         this.state = {
             title: '',
             text: '',
-            tags: []
+            tags: ['life', 'landscape']
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.extractTags = this.extractTags.bind(this);
 
     }
 
@@ -28,17 +29,26 @@ class PostForm extends Component {
             text: this.state.text,
             title: this.state.title,
             userID: 'user 01',
-            lastUpdateAt: Date.now()
+            lastUpdateAt: Date.now(),
+            tags: this.state.tags
         };
-        create(toSave);
+        create(toSave)
+            .then(response => console.log(`Status : ${response.status} Created with ID : ${response.data.id}`))
+            .catch(exc => console.log(exc));
         event.preventDefault();
     }
 
     handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
+        const fieldValue = event.target.id === 'tags' ? this.extractTags(event.target.value) : event.target.value
+        this.setState({ [event.target.id]: fieldValue });
+    }
+
+    extractTags(fieldValue) {
+        return fieldValue.split(',');
     }
 
     render() {
+        const tagsValue = this.state.tags.join(',');
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>Title
@@ -47,6 +57,9 @@ class PostForm extends Component {
                 <label>
                     Text:
               <textarea id='text' value={this.state.text} onChange={this.handleChange} />
+                </label>
+                <label>Tags
+                <input id='tags' value={tagsValue} onChange={this.handleChange} type='text'></input>
                 </label>
                 <input type="submit" value="Submit" />
             </form>

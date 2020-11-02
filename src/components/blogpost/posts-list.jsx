@@ -1,6 +1,4 @@
-import BlogPost from "./blogpost-model.jsx";
 import BPostPreview from "./blogpost-preview.jsx";
-import getBlogpost from '../../services/blogpost.js'
 import getBlogpostAll from "../../services/blogpost.js";
 
 const { Component } = require("react");
@@ -22,17 +20,6 @@ class PostsList extends Component {
         getBlogpostAll().then(result => {
             this.updateFromNewList(result.data)
         });
-        // const post1 = new BlogPost()
-        //     .setId(1)
-        //     .setAuthorFullName('First Blogger')
-        //     .setText("post1")
-        //     .setLastUdatedAt(new Date(Date.now() - 2000000000));
-        // const post2 = new BlogPost()
-        //     .setId(2)
-        //     .setAuthorFullName('Last Blogger')
-        //     .setText("Adkjh kjhasdkjh kjh askdjh kjhjdak jh kjahsdkjhdauiyais dbaisuy asdiuywe baduy234234 nhiasdyi 3b4h iua sdhias du iasdhkjhdasiuighqwjwb njabsdugyieud ")
-        //     .setLastUdatedAt(new Date(Date.now() - 2000));
-        //     this.updateFromNewList([post1, post2]);
     }
 
     render() {

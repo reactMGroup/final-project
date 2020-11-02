@@ -27,7 +27,7 @@ class UsersList extends Component {
                 <div className="card-content">
                     <div className="media">
                         <div className="media-left">
-                            <figure className="image is-48x48">
+                            <figure className="image">
                                 <img src={user.picture.large} alt="Profile" /></figure>
                         </div>
                         <div className="media-content">

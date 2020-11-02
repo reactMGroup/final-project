@@ -1,8 +1,8 @@
 import Axios from "axios";
 
-const API_KEY = '67bbdcc6-25de-40b7-8d0f-965181c30c8f';
-const ROOT_URL = 'http://api.intellexer.com';
-const clusterizeEndpoint = '/clusterize?apikey=';
+// const API_KEY = '67bbdcc6-25de-40b7-8d0f-965181c30c8f';
+// const ROOT_URL = 'http://api.intellexer.com';
+// const clusterizeEndpoint = '/clusterize?apikey=';
 
 //http://api.intellexer.com/[GET/POST method]?apikey={YourAPIKey}&options={options}
 

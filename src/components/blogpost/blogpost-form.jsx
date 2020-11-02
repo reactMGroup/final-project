@@ -1,4 +1,5 @@
 import { create } from '../../services/blogpost.js'
+import { clusterize } from '../../services/intellexer.js'
 const { Component } = require("react")
 
 class PostForm extends Component {
@@ -17,12 +18,16 @@ class PostForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.extractTags = this.extractTags.bind(this);
-
+        this.getTags = this.getTags.bind(this);
     }
 
     // componentDidMount() {
 
     // }
+
+    getTags() {
+        clusterize().then(response => console.log(response));
+    }
 
     handleSubmit(event) {
         const toSave = {
@@ -51,17 +56,34 @@ class PostForm extends Component {
         const tagsValue = this.state.tags.join(',');
         return (
             <form onSubmit={this.handleSubmit}>
-                <label>Title
-                <input id='title' value={this.state.title} onChange={this.handleChange} type='text'></input>
-                </label>
-                <label>
-                    Text:
-              <textarea id='text' value={this.state.text} onChange={this.handleChange} />
-                </label>
-                <label>Tags
-                <input id='tags' value={tagsValue} onChange={this.handleChange} type='text'></input>
-                </label>
-                <input type="submit" value="Submit" />
+                <h3 className="subtitle is-6">New Post</h3>
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input id='title' value={this.state.title} onChange={this.handleChange} type='text' className="input" placeholder="Title" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Text</label>
+                    <div class="control">
+                        <textarea id='text' value={this.state.text} onChange={this.handleChange} className="textarea" placeholder="Type here"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Tags</label>
+                    <div class="control">
+                        <input id='tags' value={tagsValue} onChange={this.handleChange} type='text' className="input" placeholder="Add tags separated with commas" />
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <input type="submit" value="Submit" class="button is-link"></input>
+                    </div>
+                    <div class="control">
+                        <button onClick={this.getTags} class="button is-link is-light">Get tags</button>
+                    </div>
+                </div>
             </form>
         );
     }

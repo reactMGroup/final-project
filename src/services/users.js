@@ -1,10 +1,15 @@
 import axios from 'axios';
+import { rootUrl } from './props';
 
-const rootUrl = 'https://5f99327250d84900163b83ba.mockapi.io';
 const endPoint = '/user/';
 
 export default function getUserAll() {
     const url = rootUrl + endPoint;
+    return axios.get(url);
+}
+
+export function getUser(ID) {
+    const url = rootUrl + endPoint + `/${ID}`;
     return axios.get(url);
 }
 

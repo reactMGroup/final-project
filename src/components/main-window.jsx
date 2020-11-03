@@ -14,6 +14,7 @@ class MainWindow extends Component {
                 <Switch>
                     <Route exact path="/feed"><PostsList /></Route>
                     <Route exact path="/new"><PostForm /></Route>
+                    <Route exact path="/details/:ID" render={(match) => <PostForm match={match} />}></Route>
                     <Route exact path="/login"><UsersList /></Route>
                     <Route exact path="/about" render={() => (<div>About</div>)}></Route>
                     <Redirect from="/" to="/feed" />

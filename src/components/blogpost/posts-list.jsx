@@ -17,9 +17,8 @@ class PostsList extends Component {
     }
 
     componentDidMount() {
-        getBlogpostAll().then(result => {
-            this.updateFromNewList(result.data)
-        });
+        getBlogpostAll()
+            .then(result => this.updateFromNewList(result));
     }
 
     render() {

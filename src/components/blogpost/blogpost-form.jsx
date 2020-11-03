@@ -1,8 +1,11 @@
 import { loginHelper } from '../../global/user.js';
-import { create } from '../../services/blogpost.js'
+import getBlogpostAll, { create, getBlogpost } from '../../services/blogpost.js'
 import { clusterize } from '../../services/intellexer.js'
 const { Component } = require("react")
 
+const modeNew = 'new';
+const modeEdit = 'edit';
+const modeReadonly = 'readonly';
 class PostForm extends Component {
     static defaultProps = {
         mode: 'new'
@@ -11,9 +14,10 @@ class PostForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            mode: modeNew,
             title: '',
             text: '',
-            tags: ['life', 'landscape']
+            tags: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,9 +26,21 @@ class PostForm extends Component {
         this.getTags = this.getTags.bind(this);
     }
 
-     componentDidMount() {
-        console.log(loginHelper.getLoggedIn());
-     }
+    componentDidMount() {
+        const postID = this.props.match ? this.props.match.match.params.ID : null;
+        const loggedID = loginHelper.getLoggedIn() ? loginHelper.getLoggedIn().id : null;
+        if (postID) {
+            getBlogpost(postID).then(blogpost => {
+                const mode = blogpost.userID === loggedID ? modeEdit : modeReadonly;
+                this.setState(previous => ({
+                    mode: mode,
+                    title: blogpost.title,
+                    text: blogpost.title,
+                    tags: blogpost.tags
+                }));
+            });
+        }
+    }
 
     getTags() {
         clusterize();//.then(response => console.log(response));

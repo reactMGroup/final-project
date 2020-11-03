@@ -1,3 +1,4 @@
+import { loginHelper } from '../../global/user.js';
 import { create } from '../../services/blogpost.js'
 import { clusterize } from '../../services/intellexer.js'
 const { Component } = require("react")
@@ -21,19 +22,19 @@ class PostForm extends Component {
         this.getTags = this.getTags.bind(this);
     }
 
-    // componentDidMount() {
-
-    // }
+     componentDidMount() {
+        console.log(loginHelper.getLoggedIn());
+     }
 
     getTags() {
-        clusterize().then(response => console.log(response));
+        clusterize();//.then(response => console.log(response));
     }
 
     handleSubmit(event) {
         const toSave = {
             text: this.state.text,
             title: this.state.title,
-            userID: 'user 01',
+            userID: loginHelper.getLoggedIn().id,
             lastUpdateAt: Date.now(),
             tags: this.state.tags
         };

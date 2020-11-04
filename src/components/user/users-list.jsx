@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import { loginHelper } from "../../global/user";
 import getUserAll from "../../services/users";
 
@@ -7,7 +8,10 @@ class UsersList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { users: [] };
+        this.state = {
+            didLogIn: false,
+            users: []
+        };
         this.renderOneUser = this.renderOneUser.bind(this);
         this.setUser = this.setUser.bind(this);
     }
@@ -20,9 +24,10 @@ class UsersList extends Component {
 
     setUser(user) {
         loginHelper.setLoggedIn(user);
+        this.setState(previous => ({ didLogIn: true }));
     }
 
-    renderOneUser(user) {
+    renderList(user) {
         return (
             <div className="card">
                 <div className="card-content">
@@ -42,9 +47,11 @@ class UsersList extends Component {
                     <button onClick={() => this.setUser(user)} class="control button is-link is-light">Login as me</button>
                 </div>
             </div>
-
-
         );
+    }
+
+    renderOneUser(user) {
+        return this.state.didLogIn ? (<Redirect to="/" />) : this.renderList(user);
     }
 
     render() {

@@ -1,20 +1,22 @@
+import { Redirect } from 'react-router-dom';
 import { loginHelper } from '../../global/user.js';
-import getBlogpostAll, { create, getBlogpost } from '../../services/blogpost.js'
+import { create, getBlogpost } from '../../services/blogpost.js'
 import { clusterize } from '../../services/intellexer.js'
 const { Component } = require("react")
 
+const modeUnknown = 'unknown';
 const modeNew = 'new';
 const modeEdit = 'edit';
 const modeReadonly = 'readonly';
 class PostForm extends Component {
     static defaultProps = {
-        mode: 'new'
+        key: modeUnknown
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            mode: modeNew,
+            mode: props.key,
             title: '',
             text: '',
             tags: []
@@ -39,6 +41,13 @@ class PostForm extends Component {
                     tags: blogpost.tags
                 }));
             });
+        } else {
+            this.setState(previous => ({
+                mode: modeNew,
+                title: '',
+                text: '',
+                tags: []
+            }));
         }
     }
 
@@ -69,39 +78,54 @@ class PostForm extends Component {
         return fieldValue.split(',');
     }
 
-    render() {
+    buildForm() {
         const tagsValue = this.state.tags.join(',');
+        const submitVisibilityClass = this.state.mode === modeReadonly ? ' is-hidden' : '';
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3 className="subtitle is-6">New Post</h3>
-                <div class="field">
-                    <label class="label">Title</label>
-                    <div class="control">
+                <div className="field">
+                    <label className="label">Title</label>
+                    <div className="control">
                         <input id='title' value={this.state.title} onChange={this.handleChange} type='text' className="input" placeholder="Title" />
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">Text</label>
-                    <div class="control">
+                <div className="field">
+                    <label className="label">Text</label>
+                    <div className="control">
                         <textarea id='text' value={this.state.text} onChange={this.handleChange} className="textarea" placeholder="Type here"></textarea>
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">Tags</label>
-                    <div class="control field is-grouped">
+                <div className="field">
+                    <label className="label">Tags</label>
+                    <div className="control field is-grouped">
                         <input id='tags' value={tagsValue} onChange={this.handleChange} type='text' className="input" placeholder="Add tags separated with commas" />
-                        <button onClick={this.getTags} class="control button is-link is-light">Get tags</button>
+                        <button onClick={this.getTags} className="control button is-link is-light">Get tags</button>
                     </div>
                 </div>
 
-                <div class="field is-grouped">
-                    <div class="control">
-                        <input type="submit" value="Submit" class="button is-link"></input>
+                <div className={"field is-grouped" + submitVisibilityClass}>
+                    <div className="control">
+                        <input type="submit" value="Submit" className="button is-link"></input>
                     </div>
                 </div>
             </form>
         );
+
+    }
+
+    render() {
+        if (this.state.mode === modeUnknown) {
+            return (<p>Loading...</p>);
+        }
+        const loggedIn = loginHelper.getLoggedIn();
+        console.log(`Logged IN ${loggedIn}`);
+        if (loggedIn === null && this.state.mode === modeNew) {
+            return (<Redirect to="/login" />);
+        } else {
+            return this.buildForm();
+        }
     }
 }
 
 export default PostForm;
+export { modeUnknown, modeNew, modeEdit, modeReadonly };

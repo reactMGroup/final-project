@@ -1,5 +1,5 @@
 import { Redirect } from "react-router-dom";
-import { loginHelper } from "../../global/user";
+import { loginHelper } from "../../global/authentication";
 import getUserAll from "../../services/users";
 
 const { Component } = require("react");
@@ -44,7 +44,7 @@ class UsersList extends Component {
                     <div className="content">
                         {user.username}
                     </div>
-                    <button onClick={() => this.setUser(user)} class="control button is-link is-light">Login as me</button>
+                    <button onClick={() => this.setUser(user)} className="control button is-link is-light">Login as me</button>
                 </div>
             </div>
         );

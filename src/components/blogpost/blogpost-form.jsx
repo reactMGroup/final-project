@@ -1,5 +1,5 @@
 import { Redirect } from 'react-router-dom';
-import { loginHelper } from '../../global/user.js';
+import { loginHelper } from '../../global/authentication.js';
 import { create, getBlogpost } from '../../services/blogpost.js'
 import { clusterize } from '../../services/intellexer.js'
 const { Component } = require("react")
@@ -30,14 +30,14 @@ class PostForm extends Component {
 
     componentDidMount() {
         const postID = this.props.match ? this.props.match.match.params.ID : null;
-        const loggedID = loginHelper.getLoggedIn() ? loginHelper.getLoggedIn().id : null;
+        const loggedID = loginHelper.getLoggedIn();
         if (postID) {
             getBlogpost(postID).then(blogpost => {
                 const mode = blogpost.userID === loggedID ? modeEdit : modeReadonly;
                 this.setState(previous => ({
                     mode: mode,
                     title: blogpost.title,
-                    text: blogpost.title,
+                    text: blogpost.text,
                     tags: blogpost.tags
                 }));
             });
@@ -59,7 +59,7 @@ class PostForm extends Component {
         const toSave = {
             text: this.state.text,
             title: this.state.title,
-            userID: loginHelper.getLoggedIn().id,
+            userID: loginHelper.getLoggedIn(),
             lastUpdateAt: Date.now(),
             tags: this.state.tags
         };

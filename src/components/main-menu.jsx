@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Link } from 'react-router-dom';
+import { loginHelper } from "../global/authentication";
 
 class MainMenu extends Component {
 
@@ -48,12 +49,12 @@ class MainMenu extends Component {
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                {/* <a className="button is-primary">
-                                    <strong>Sign up</strong>
-                                </a> */}
-                                <Link to="/login" className="button is-light">
+                                <Link to="/login" className="button is-primary">
                                     Log in
                                 </Link>
+                                <span onClick={() => loginHelper.logout()} className="button is-light ">
+                                    <strong>Log out</strong>
+                                </span>
                             </div>
                         </div>
                     </div>

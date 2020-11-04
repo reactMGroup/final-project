@@ -81,24 +81,25 @@ class PostForm extends Component {
     buildForm() {
         const tagsValue = this.state.tags.join(',');
         const submitVisibilityClass = this.state.mode === modeReadonly ? ' is-hidden' : '';
+        const readonlyProp = this.state.mode === modeReadonly;
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="field">
                     <label className="label">Title</label>
                     <div className="control">
-                        <input id='title' value={this.state.title} onChange={this.handleChange} type='text' className="input" placeholder="Title" />
+                        <input id='title' value={this.state.title} onChange={this.handleChange} type='text' className="input" placeholder="Title" readOnly={readonlyProp} />
                     </div>
                 </div>
                 <div className="field">
                     <label className="label">Text</label>
                     <div className="control">
-                        <textarea id='text' value={this.state.text} onChange={this.handleChange} className="textarea" placeholder="Type here"></textarea>
+                        <textarea id='text' value={this.state.text} onChange={this.handleChange} className="textarea" placeholder="Type here" readOnly={readonlyProp} ></textarea>
                     </div>
                 </div>
                 <div className="field">
                     <label className="label">Tags</label>
                     <div className="control field is-grouped">
-                        <input id='tags' value={tagsValue} onChange={this.handleChange} type='text' className="input" placeholder="Add tags separated with commas" />
+                        <input id='tags' value={tagsValue} onChange={this.handleChange} type='text' className="input" placeholder="Add tags separated with commas" readOnly={readonlyProp} />
                         <button onClick={this.getTags} className="control button is-link is-light">Get tags</button>
                     </div>
                 </div>
@@ -115,7 +116,7 @@ class PostForm extends Component {
 
     render() {
         if (this.state.mode === modeUnknown) {
-            return (<p>Loading...</p>);
+            return (<p className="control is-loading">Loading...</p>);
         }
         const loggedIn = loginHelper.getLoggedIn();
         console.log(`Logged IN ${loggedIn}`);

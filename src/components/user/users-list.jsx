@@ -5,6 +5,7 @@ import getUserAll from "../../services/users";
 const { Component } = require("react");
 
 class UsersList extends Component {
+
     constructor(props) {
         super(props);
 
@@ -24,7 +25,8 @@ class UsersList extends Component {
 
     setUser(user) {
         loginHelper.setLoggedIn(user);
-        this.setState(previous => ({ didLogIn: true }));
+        this.props.loggedStateChanged();
+        this.setState(() => ({ didLogIn: true }));
     }
 
     renderList(user) {
@@ -56,7 +58,10 @@ class UsersList extends Component {
 
     render() {
         const userCards = this.state.users.map(user => this.renderOneUser(user));
-        return (<div>{userCards}</div>);
+        return (<div>
+            <div className="title is-5">Choose user</div>
+            {userCards}
+        </div>);
     }
 }
 

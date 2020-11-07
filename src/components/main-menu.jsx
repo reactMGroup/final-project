@@ -1,12 +1,23 @@
 import { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { loginHelper } from "../global/authentication";
 
 class MainMenu extends Component {
 
+    constructor(props) {
+        super(props);
+        this.logout = this.logout.bind(this);
+    }
+
+    logout() {
+        loginHelper.logout();
+        this.props.loggedStateChanged();
+    }
+
     render() {
+        const loggedIn = this.props.user !== null;
         return (
-            <nav className="navbar" role="navigation" aria-label="main navigation">
+            <nav className="navbar tile  box" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
                     <span className="navbar-item" href="#">
                         Entangled Word
@@ -25,36 +36,21 @@ class MainMenu extends Component {
                         <Link to="/new" className="navbar-item">
                             New Post
                         </Link>
-                        {/* <div className="navbar-item has-dropdown is-hoverable">
-                            <a className="navbar-link">
-                                More
-                            </a>
-                            <div className="navbar-dropdown">
-                                <a className="navbar-item">
-                                    About
-                                  </a>
-                                <a className="navbar-item">
-                                    Jobs
-                                </a>
-                                <a className="navbar-item">
-                                    Contact
-                                </a>
-                                <hr className="navbar-divider" />
-                                <a className="navbar-item">
-                                    Report an issue
-                                  </a>
-                            </div>
-                        </div> */}
                     </div>
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                <Link to="/login" className="button is-primary">
-                                    Log in
-                                </Link>
-                                <span onClick={() => loginHelper.logout()} className="button is-light ">
-                                    <strong>Log out</strong>
-                                </span>
+                                {
+                                    loggedIn ?
+                                        (<span onClick={this.logout} className="button is-light ">
+                                            <strong>Log out</strong>
+                                        </span>)
+                                        : (<Link to="/login" className="button is-primary">
+                                            Log in
+                                        </Link>)
+                                }
+
+
                             </div>
                         </div>
                     </div>

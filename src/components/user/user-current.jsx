@@ -1,6 +1,3 @@
-import { loginHelper } from "../../global/authentication";
-import { getUser } from "../../services/users";
-
 const { Component } = require("react");
 
 class CurrentUser extends Component {

@@ -4,7 +4,7 @@ class TagsList extends Component {
 
     render() {
         const values = this.props.tags.join(', ');
-        return (<textarea id="tags" readOnly={true} value={values}></textarea>)
+        return (<textarea className="textarea is-medium is-info" rows='20' id="tags" readOnly={true} value={values}></textarea>)
     }
 
 }

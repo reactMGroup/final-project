@@ -62,7 +62,7 @@ export function getTags() {
     const url = rootUrl + endPoint;
     return axios.get(url)
         .then(result => result.data)
-        .then(allPosts => {
-            return allPosts.map(one => one.tags);
-        });
+        .then(allPosts => allPosts.map(one => one.tags))
+        .then(arrayOfArrays => arrayOfArrays.flat()
+        .filter(onlyUnique));
 }

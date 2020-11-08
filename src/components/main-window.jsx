@@ -49,7 +49,6 @@ class MainWindow extends Component {
     }
 
     render() {
-        const tagsValues = this.state.tags.filter(onlyUnique);
         return (
             <BrowserRouter>
                 <MainMenu user={this.state.user} loggedStateChanged={this.loggedStateChanged} />
@@ -72,7 +71,7 @@ class MainWindow extends Component {
                         </div>
                         <div className="tile is-child box">
                             <p className="title">Tags</p>
-                            <TagsList tags={tagsValues} />
+                            <TagsList tags={this.state.tags} />
                         </div>
                     </div>
                 </div>

@@ -66,11 +66,9 @@ class MainWindow extends Component {
                         </div>
                     </div>
                     <div className="tile is-vertical is-parent">
-                        <div className="tile is-child box">
+                        <div className="tile is-child box" >
                             <CurrentUser user={this.state.user} />
-                        </div>
-                        <div className="tile is-child box">
-                            <p className="title">Tags</p>
+                            <br/>
                             <TagsList tags={this.state.tags} />
                         </div>
                     </div>

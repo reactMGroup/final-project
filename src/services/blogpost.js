@@ -54,7 +54,7 @@ export function create(newPost) {
     return axios.post(url, newPost);
 }
 
-export function onlyUnique(value, index, self) {
+function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 

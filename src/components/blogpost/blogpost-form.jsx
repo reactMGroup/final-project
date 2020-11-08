@@ -10,7 +10,8 @@ const modeEdit = 'edit';
 const modeReadonly = 'readonly';
 class PostForm extends Component {
     static defaultProps = {
-        key: modeUnknown
+        key: modeUnknown,
+        refreshTags: function () { console.log(`refreshTags is not implemented`) }
     }
 
     constructor(props) {
@@ -64,7 +65,10 @@ class PostForm extends Component {
             tags: this.state.tags
         };
         create(toSave)
-            .then(response => console.log(`Status : ${response.status} Created with ID : ${response.data.id}`))
+            .then(response => {
+                this.props.refreshTags();
+                console.log(`Status : ${response.status} Created with ID : ${response.data.id}`);
+            })
             .catch(exc => console.log(exc));
         event.preventDefault();
     }

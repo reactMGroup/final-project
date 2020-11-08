@@ -53,3 +53,16 @@ export function create(newPost) {
     const url = rootUrl + endPoint;
     return axios.post(url, newPost);
 }
+
+export function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+export function getTags() {
+    const url = rootUrl + endPoint;
+    return axios.get(url)
+        .then(result => result.data)
+        .then(allPosts => {
+            return allPosts.map(one => one.tags);
+        });
+}

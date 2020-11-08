@@ -8,7 +8,7 @@ import CurrentUser from "./user/user-current";
 import { loginHelper } from "../global/authentication";
 import { getUser } from "../services/users";
 import { TagsList } from "./tag/tags-list";
-import { getTags, onlyUnique } from "../services/blogpost";
+import { getTags } from "../services/blogpost";
 
 class MainWindow extends Component {
 
